@@ -1,0 +1,90 @@
+﻿<#@ template language="C#" #>
+<#@ output extension=".cs" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System" #>
+<# string[] types = new[] {
+	"uint", "ushort", "byte"
+	};
+#>
+using System;
+
+namespace SCHOTT.Core.Extensions
+{
+<# foreach (var type in types) { #>	
+	/// <summary>
+	/// Binary Operators for <#= type #> types
+	/// </summary>
+	public static class <#= type #>Extensions
+	{
+		/// <summary>
+		/// Checks the state of a particular bit in a unsigned integer.
+		/// </summary>
+		/// <param name="number">The number to run the bitwise operation on.</param>
+		/// <param name="position">The position in the number to run the bitwise operation on.</param>
+		/// <returns>True if bit at position == 1</returns>
+		public static bool CheckBit(this <#= type #> number, int position)
+		{
+			return (number & ((<#= type #>)1 << position)) != 0;
+		}
+
+		/// <summary>
+		/// Sets the state of a particular bit in a unsigned integer.
+		/// </summary>
+		/// <param name="number">The number to run the bitwise operation on.</param>
+		/// <param name="position">The position in the number to run the bitwise operation on.</param>
+		/// <returns></returns>
+		public static <#= type #> SetBit(this <#= type #> number, int position)
+		{
+			return (<#= type #>)(number | (<#= type #>)1 << position);
+		}
+
+		/// <summary>
+		/// Clears the state of a particular bit in a unsigned integer.
+		/// </summary>
+		/// <param name="number">The number to run the bitwise operation on.</param>
+		/// <param name="position">The position in the number to run the bitwise operation on.</param>
+		/// <returns></returns>
+		public static <#= type #> ClearBit(this <#= type #> number, int position)
+		{
+			return (<#= type #>)(number & ~((<#= type #>)1 << position));
+		}
+
+		/// <summary>
+		/// Toggles the state of a particular bit in a unsigned integer.
+		/// </summary>
+		/// <param name="number">The number to run the bitwise operation on.</param>
+		/// <param name="position">The position in the number to run the bitwise operation on.</param>
+		/// <returns></returns>
+		public static <#= type #> ToggleBit(this <#= type #> number, int position)
+		{
+			return (<#= type #>)(number ^ (<#= type #>)1 << position);
+		}
+		
+		/// <summary>
+		/// Rotating Bit Shift Left
+		/// </summary>
+		/// <param name="value">Value to bitshift</param>
+		/// <param name="count">How many bits to shift</param>
+		/// <returns></returns>
+		public static <#= type #> RotateLeft(this <#= type #> value, int count = 1)
+		{
+			const int size = sizeof(<#= type #>) << 3;
+			count &= size - 1;
+			return (<#= type #>)((value << count) | (value >> ((sizeof(<#= type #>) << 3) - count)));
+		}
+
+		/// <summary>
+		/// Rotating Bit Shift Right
+		/// </summary>
+		/// <param name="value">Value to bitshift</param>
+		/// <param name="count">How many bits to shift</param>
+		/// <returns></returns>
+		public static <#= type #> RotateRight(this <#= type #> value, int count = 1)
+		{
+			const int size = sizeof(<#= type #>) << 3;
+			count &= size - 1;
+			return (<#= type #>)((value >> count) | (value << ((sizeof(<#= type #>) << 3) - count)));
+		}
+	}
+<# } #>
+}

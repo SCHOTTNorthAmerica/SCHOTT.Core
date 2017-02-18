@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0C544D90-4E9E-4895-AC47-1E6B97F5E729}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SCHOTT.Core</RootNamespace>
+    <AssemblyName>SCHOTT.Core</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\SCHOTT.Core Debug\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\SCHOTT.Core\</OutputPath>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Threading, Version=1.0.2856.102, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\TaskParallelLibrary.1.0.2856.0\lib\Net35\System.Threading.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SCHOTT\Core\Communication\ComParameters.cs" />
+    <Compile Include="SCHOTT\Core\Communication\Ethernet\TelnetSocket.cs" />
+    <Compile Include="SCHOTT\Core\Communication\Ethernet\Network.cs" />
+    <Compile Include="SCHOTT\Core\Communication\ITextProtocol.cs" />
+    <Compile Include="SCHOTT\Core\Communication\Serial\ComPortInfo.cs" />
+    <Compile Include="SCHOTT\Core\Communication\Serial\ThreadedComPortBase.cs" />
+    <Compile Include="SCHOTT\Core\Extensions\Numbers.cs" />
+    <Compile Include="SCHOTT\Core\Extensions\BitwiseOperators.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BitwiseOperators.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SCHOTT\Core\Settings\Settings.cs" />
+    <Compile Include="SCHOTT\Core\StateMachine\Stack.cs" />
+    <Compile Include="SCHOTT\Core\StateMachine\State.cs" />
+    <Compile Include="SCHOTT\Core\StateMachine\Step.cs" />
+    <Compile Include="SCHOTT\Core\StateMachine\ThreadedStateMachine.cs" />
+    <Compile Include="SCHOTT\Core\Threading\ClosingWorker.cs" />
+    <Compile Include="SCHOTT\Core\Extensions\ClosingWorkerExtensions.cs" />
+    <Compile Include="SCHOTT\Core\Threading\ThreadInfo.cs" />
+    <Compile Include="SCHOTT\Core\Threading\ClosingInfo.cs" />
+    <Compile Include="SCHOTT\Core\Threading\ThreadInterface.cs" />
+    <Compile Include="SCHOTT\Core\Utilities\ConsoleFunctions.cs" />
+    <Compile Include="SCHOTT\Core\Utilities\MessageBroker.cs" />
+    <Compile Include="SCHOTT\Core\Extensions\Memory.cs" />
+    <Compile Include="SCHOTT\Core\Communication\Serial\ComPortBase.cs" />
+    <Compile Include="SCHOTT\Core\Extensions\Date.cs" />
+    <Compile Include="SCHOTT\Core\Communication\Ethernet\AsyncSocket.cs" />
+    <Compile Include="SCHOTT\Core\StateMachine\MachineFunctions.cs" />
+    <Compile Include="SCHOTT\Core\Utilities\TimeFunctions.cs" />
+    <Compile Include="SCHOTT\Core\Threading\ThreadingBase.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Licenses\SCHOTT.Core License - MIT.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SCHOTT\Core\Extensions\BitwiseOperators.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>BitwiseOperators.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
