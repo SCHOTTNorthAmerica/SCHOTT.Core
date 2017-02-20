@@ -2,7 +2,7 @@
 <package >
 	<metadata>
 		<id>SCHOTT.Core</id>
-		<version>1.0.0</version>
+		<version>1.0.1</version>
 		<title>SCHOTT.Core Library</title>
 		<authors>jgvicke</authors>
 		<owners>jgvicke</owners>
@@ -11,15 +11,11 @@
 		<iconUrl>https://avatars0.githubusercontent.com/u/23213816?v=3&amp;s=200</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>Core functions used by SCHOTT products.</description>
-		<releaseNotes>Initial Release</releaseNotes>
+		<releaseNotes>Bug Fix: Updated to always include the TaskParallelLibrary even in later versions of .Net.</releaseNotes>
 		<copyright>Copyright 2016</copyright>
 		<tags>SCHOTT Core</tags>
 		<dependencies>
-			<group targetFramework="net35">
-				<dependency id="TaskParallelLibrary" version="1.0.2856" />
-			</group>
-			<group targetFramework="net40">
-			</group>
+			<dependency id="TaskParallelLibrary" version="1.0.2856" />
 		</dependencies>
 	</metadata>
 	<files>
