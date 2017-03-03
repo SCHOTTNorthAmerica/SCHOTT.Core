@@ -364,8 +364,9 @@ namespace SCHOTT.Core.Communication.Serial
             {
                 IsConnected = false;
                 CurrentConnection?.Disconnect();
-                RunConnectionUpdate(new ConnectionUpdateArgs(IsOpen, IsConnected, PortName));
             }
+
+            RunConnectionUpdate();
 
             switch (TargetMode)
             {
@@ -453,6 +454,8 @@ namespace SCHOTT.Core.Communication.Serial
                     currentStep.SkipDelayTime = true;
                     MachineFunctions.JumpToFirst(currentStep);
                 }
+
+                return StepReturn.JumpCommandUsed;
             }
 
             // this step should never move on automatically
