@@ -97,6 +97,17 @@ namespace SCHOTT.Core.Communication.Serial
                        IsOpen == newArgs.IsOpen &&
                        Port == newArgs.Port;
             }
+
+            /// <summary>
+            /// A function to update the values from the args object.
+            /// </summary>
+            /// <param name="args">ConnectionUpdateArgs object to copy settings from.</param>
+            public void CopyFrom(ConnectionUpdateArgs args)
+            {
+                IsConnected = args.IsConnected;
+                IsOpen = args.IsOpen;
+                Port = args.Port;
+            }
         }
 
         /// <summary>
@@ -109,13 +120,15 @@ namespace SCHOTT.Core.Communication.Serial
             MessageBroker.Register("ConnectionUpdate", context, action);
         }
 
-        private ConnectionUpdateArgs _lastArgs = new ConnectionUpdateArgs();
-        private void RunConnectionUpdate(ConnectionUpdateArgs args)
+        private readonly ConnectionUpdateArgs _lastArgs = new ConnectionUpdateArgs();
+        private void RunConnectionUpdate()
         {
+            var args = new ConnectionUpdateArgs(IsOpen, IsConnected, PortName);
+
             if (_lastArgs.IsEqual(args))
                 return;
 
-            _lastArgs = args;
+            _lastArgs.CopyFrom(args);
             MessageBroker.RunActions("ConnectionUpdate", args);
         }
 
@@ -400,7 +413,7 @@ namespace SCHOTT.Core.Communication.Serial
             
             // we opened a port, so update the listeners
             ConnectionEventRegister();
-            RunConnectionUpdate(new ConnectionUpdateArgs(IsOpen, IsConnected, PortName));
+            RunConnectionUpdate();
 
             // move to the next step
             return StepReturn.ContinueToNext;
@@ -415,14 +428,14 @@ namespace SCHOTT.Core.Communication.Serial
                     return StepReturn.RepeatStep;
 
                 IsConnected = true;
-                RunConnectionUpdate(new ConnectionUpdateArgs(IsOpen, IsConnected, PortName));
+                RunConnectionUpdate();
             }
             else
             {
                 if (IsConnected)
                 {
                     IsConnected = false;
-                    RunConnectionUpdate(new ConnectionUpdateArgs(IsOpen, IsConnected, PortName));
+                    RunConnectionUpdate();
                 }
 
                 if (TargetMode != ConnectionMode.PersistentPort)
@@ -453,7 +466,7 @@ namespace SCHOTT.Core.Communication.Serial
             {
                 IsConnected = false;
                 CurrentConnection?.Disconnect();
-                RunConnectionUpdate(new ConnectionUpdateArgs(IsOpen, IsConnected, PortName));
+                RunConnectionUpdate();
             }
 
             if (WorkerState.ThreadClosing)
